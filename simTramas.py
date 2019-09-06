@@ -27,11 +27,18 @@ def distTramas(rand):
         
 #Se genera el byte stuffing
 def byteStuffing(tramas):
-        byteIni = 245   #representacion ascii de (§)
+        byteIni = 245     #representacion ascii de (§)
         byteFin = 208     #representacion ascii de (ð)
+        esc = 27         #representación ascii de ESC
         for trama in tramas:
+                aux = 0
+                for b in trama:
+                        if b == byteIni or b == byteFin or b == esc :
+                                trama.insert(aux,esc)
+                                aux = aux + 1
                 trama.insert(0,byteIni)
-                trama.append(byteFin)   
+                trama.append(byteFin)
+        return tramas   
 
 #Genera un cierto porcentaje de error en las tramas
 def errPorcen(porcentaje,tramas):
@@ -40,7 +47,7 @@ def errPorcen(porcentaje,tramas):
 
 
 tramas = generarTramas()
-byteStuffing(tramas)
+tramasStuffing = byteStuffing(tramas)
 
 
 
