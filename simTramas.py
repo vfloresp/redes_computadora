@@ -15,7 +15,7 @@ def generarTramas():
 
 #Calcula la distribución de las tramas y muestra una gráfica
 def longTramas(tramas):
-        count = np.zeros(15)
+        count = np.zeros(20)
         max = 0
         for trama in tramas:
                 if len(trama)>max:
@@ -53,19 +53,44 @@ def byteStuffing(tramas):
         return tramas   
 
 #Genera un cierto porcentaje de error en las tramas
+#Y muestra la cantidad de errores, así como errores por trama
 def errPorcen(porcentaje,tramas):
-        cantErrores = tramas*porcentaje
+        totBytes = 0
+        for trama in tramas:
+                totBytes = totBytes + len(trama)
+        cantErr = round(porcentaje*totBytes)
+        distErr = np.random.randint(0,totBytes,cantErr)
+        tramasErr = 0
+        aux = 0
+        for trama in tramas:
+                badT = False
+                for i in range(len(trama)):
+                        if aux in distErr:
+                                trama[i] =  list(np.random.bytes(1))[0]
+                                badT = True 
+                        aux = aux + 1
+                if badT:
+                        tramasErr = tramasErr + 1
+        print("número total de bytes erroneos: " + str(cantErr))
+        print("número total de tramas erroneas: " + str(tramasErr))
+        return tramas
         
 
 
 tramas = generarTramas()
-print(len(tramas))
 longTramas(tramas)
 tramasStuffing = byteStuffing(tramas)
 longTramas(tramasStuffing)
+print("tramas con 0.2 de error")
 tramas2 = errPorcen(0.2,tramasStuffing)
+print("\n")
+print("tramas con 0.1 de error")
 tramas1 = errPorcen(0.1,tramasStuffing)
+print("\n")
+print("tramas con 0.05 de error")
 tramas05 = errPorcen(0.05,tramasStuffing)
+print("\n")
+print("tramas con 0.02 de error")
 tramas02 = errPorcen(0.02,tramasStuffing)
 plt.show()
 
