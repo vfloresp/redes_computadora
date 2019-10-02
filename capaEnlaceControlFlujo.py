@@ -14,15 +14,20 @@ def simularEnvios(p):
     ack = False
     repeat = 0
     for i in range(1,n):
-        envioA = 1 if (np.random.randint(1,1001)/1000)<=p and ack == False else 0  
+        envioA = 1 if ((np.random.randint(1,1001)/1000)<=p and ack == False) or (ack == True and repeat !=0) else 0
+        if(ack == True and repeat !=0):
+            ack = False  
         envioB = 1 if (np.random.randint(1,1001)/1000)<=p else 0
         if (envioA and envioB) or (ack and envioB):
             colision = colision + 1
         elif envioA:
             envCorrA = envCorrA + 1
             ack = True
+            repeat = 0
         elif envioB:
             envCorrB = envCorrB +1
+            ack = False
+            repeat = 0
         else:
             ack = False
             repeat = 0
