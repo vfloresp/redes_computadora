@@ -11,8 +11,14 @@ while 1:
   try:
     dataS = data.decode()
     print(dataS)
+    source = dataS[:2]
+    if source == "TA":
+      nSec = dataS[3:]
+      resp = "TC: " + nSec
+      s.write(resp.encode())
+      print("ack = "+ resp)
   except:
-    print("Variable x is not defined")
+    print("Colision")
   
   time.sleep(1/1000*55)              # Sleep (or inWaiting() doesn't give the correct value)
   #data_left = s.inWaiting()  # Get the number of characters ready to be read
