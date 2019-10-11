@@ -8,7 +8,7 @@ s.is_open
 n = 0
 while n<500:
     slotToSend = np.random.randint(1,5)
-    time.sleep(slotToSend/1000*100)
+    time.sleep(slotToSend/1000*55)
     s.write(b'TA:')
     random = str(np.random.randint(0,256))
     s.write(random.encode()))
