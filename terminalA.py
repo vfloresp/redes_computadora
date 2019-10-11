@@ -17,9 +17,11 @@ while n<500:
     time.sleep(slotToSend/1000*55)
     data = s.read_until(size=7)
     try:
-        dataS = data.decode()
-        print(dataS)
-  except:
-    print("Colision")
+       dataS = data.decode()
+       source = dataS[:2]
+       if source == "TC":
+           print(dataS)
+    except:
+       print("Colision")
 
 s.close()

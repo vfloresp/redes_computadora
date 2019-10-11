@@ -21,8 +21,5 @@ while 1:
   except:
     print("Colision")
   
-  time.sleep(1/1000*55)              # Sleep (or inWaiting() doesn't give the correct value)
-  #data_left = s.inWaiting()  # Get the number of characters ready to be read
-  #tdata += s.read(data_left) # Do the read and combine it with the first character
-
+  time.sleep(1/1000*55)       
 s.close()
