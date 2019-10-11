@@ -16,6 +16,7 @@ while 1:
       nSec = dataS[3:]
       resp = "TC: " + nSec
       s.write(resp.encode())
+      s.write(b'\n')
       print("ack = "+ resp)
   except:
     print("Colision")

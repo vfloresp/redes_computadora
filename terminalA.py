@@ -11,8 +11,15 @@ while n<500:
     time.sleep(slotToSend/1000*55)
     s.write(b'TA:')
     random = str(np.random.randint(0,256))
-    s.write(random.encode()))
+    s.write(random.encode())
     s.write(b'\n')
     n = n+1
+    time.sleep(slotToSend/1000*55)
+    data = s.read_until(size=7)
+    try:
+        dataS = data.decode()
+        print(dataS)
+  except:
+    print("Colision")
 
 s.close()
