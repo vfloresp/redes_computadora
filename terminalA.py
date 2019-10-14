@@ -33,8 +33,8 @@ while n<500:
             dataS = data.decode()
             if len(dataS>4):
                 source = dataS[:3]
-                val = int(dataS[3:])
-                if((source!="TC:" and source!="TB:") or val<0 or val>255):
+                val = dataS[3:]
+                if(source!="TC:" and source!="TB:"):
                     print("Colision")
                     colisiones = colisiones + 1
                     rep = rep +1

@@ -13,9 +13,9 @@ while 1:
     dataS = data.decode()
     if len(dataS>4):
       source = dataS[:3]
-      val = int(dataS[3:])
+      val = dataS[3:]
       print(dataS)
-      if((source!="TA:" and source!="TB:") or val<0 or val>255):
+      if(source!="TA:" and source!="TB:"):
         print("Colision")
       #Si recibe trama de A, entonces envia un ack
       elif source == "TA:":
