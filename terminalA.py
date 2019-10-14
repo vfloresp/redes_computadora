@@ -23,7 +23,7 @@ while n<500:
         dataS = data.decode()
         source = dataS[:3]
         val = int(dataS[3:])
-        if(source!="TC" or source!="TA" or val<0 or val>255):
+        if(source!="TC:" or source!="TA:" or val<0 or val>255):
             colisiones = colisiones + 1
         elif source == "TC":
             print(dataS)
