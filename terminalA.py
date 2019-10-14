@@ -13,7 +13,7 @@ while n<500:
 
     #Reinicia los parametros de ack y repeticion
     ack = False
-    rep = 0
+    ret = 0
 
     #Calcula el slot aleatorio para enviar
     slotToSend = np.random.randint(1,5)
@@ -24,30 +24,30 @@ while n<500:
     print('TA: ' + random)
 
     #Ciclo para esperar el ack
-    while ack == False and rep < 3:
+    while ack == False and ret < 3:
         #Espera un ciclo entre cada lectura
         time.sleep(1/1000*55)
         data = s.read_until(size=7)
         #Intenta decodificar los bytes recibidos
         try:
             dataS = data.decode()
-            if len(dataS>4):
-                source = dataS[:3]
-                val = dataS[3:]
-                if(source!="TC:" and source!="TB:"):
-                    print("Colision")
-                    colisiones = colisiones + 1
-                    rep = rep +1
-                    s.write(b'TA:'+ random.encode()+b'\n')
-                #El ack se recibio correctamente
-                elif source == "TC:":
-                    print(dataS)
-                    ack = True
+            source = dataS[:3]
+            val = dataS[3:]
+            validarVal = int(val)
+            if(source!="TC:" and source!="TB:"):
+                print("Colision")
+                colisiones = colisiones + 1
+                ret = ret +1
+                s.write(b'TA:'+ random.encode()+b'\n')
+            #El ack se recibio correctamente
+            elif source == "TC:":
+                print(dataS)
+                ack = True
         #Si marca error trata de reenviar
         except:
             print("Colision")
             colisiones = colisiones + 1
-            rep = rep + 1
+            ret = ret + 1
             s.write(b'TA:'+ random.encode()+b'\n')
 
 s.close()

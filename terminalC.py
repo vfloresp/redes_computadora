@@ -13,6 +13,7 @@ while 1:
     dataS = data.decode()
     source = dataS[:3]
     val = dataS[3:]
+    validarVal = int(val)
     print(dataS)
     if(source!="TA:" and source!="TB:"):
       print("Colision")
