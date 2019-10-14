@@ -25,8 +25,6 @@ while n<500:
 
     #Ciclo para esperar el ack
     while ack == False and ret < 3:
-        #Espera un ciclo entre cada lectura
-        time.sleep(1/1000*55)
         data = s.read_until(size=7)
         #Intenta decodificar los bytes recibidos
         try:
@@ -49,5 +47,8 @@ while n<500:
             colisiones = colisiones + 1
             ret = ret + 1
             s.write(b'TA:'+ random.encode()+b'\n')
+
+        #Espera un ciclo entre cada lectura
+        time.sleep(1/1000*55)
 
 s.close()
