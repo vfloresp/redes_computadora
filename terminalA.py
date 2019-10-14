@@ -20,9 +20,9 @@ while n<500:
     s.write(b'\n')
     n = n+1
     print('TA: ' + random)
-    time.sleep(slotToSend/1000*55)
     data = s.read_until(size=7)
     while ack == False and rep < 3:
+        time.sleep(slotToSend/1000*110)
         try:
             dataS = data.decode()
             source = dataS[:3]
@@ -31,6 +31,7 @@ while n<500:
                 colisiones = colisiones + 1
                 print("Colision")
                 rep = rep +1
+                s.write(random.encode())
             elif source == "TC:":
                 print(dataS)
                 ack = True
@@ -38,5 +39,6 @@ while n<500:
             print("Colision")
             colisiones = colisiones + 1
             rep = rep + 1
+            s.write(random.encode())
 
 s.close()
