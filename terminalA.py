@@ -44,7 +44,7 @@ while n<500:
                 ack = True
         #Si marca error trata de reenviar
         except Exception as e:
-            if str(e) != "invalid literal for int() with base 10: ''"
+            if str(e) != "invalid literal for int() with base 10: ''":
                 print("Colision")
                 if ret < 3:
                     colisiones = colisiones + 1
