@@ -15,8 +15,7 @@ while 1:
     if source == "TA" or source == "Ar":
       nSec = dataS[3:]
       resp = "TC: " + nSec
-      s.write(resp.encode())
-      s.write(b'\n')
+      s.write(resp.encode()+b'\n')
       print("ack = "+ resp)
   except:
     print("Colision")
