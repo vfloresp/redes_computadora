@@ -2,7 +2,7 @@ import serial
 import time
 import numpy as np
 
-s = serial.Serial('COM5')
+s = serial.Serial('COM7')
 
 envios = 0
 colisiones = 0
