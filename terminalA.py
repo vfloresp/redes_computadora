@@ -10,6 +10,8 @@ reenvio = 0
 s.is_open
 n = 0
 while n<500:
+    ack = False
+    rep = 0
     slotToSend = np.random.randint(1,5)
     time.sleep(slotToSend/1000*55)
     s.write(b'TA:')
@@ -20,17 +22,21 @@ while n<500:
     print('TA: ' + random)
     time.sleep(slotToSend/1000*55)
     data = s.read_until(size=7)
-    try:
-        dataS = data.decode()
-        source = dataS[:3]
-        val = int(dataS[3:])
-        if((source!="TC:" and source!="TB:") or val<0 or val>255):
-            colisiones = colisiones + 1
+    while ack == False and rep < 3:
+        try:
+            dataS = data.decode()
+            source = dataS[:3]
+            val = int(dataS[3:])
+            if((source!="TC:" and source!="TB:") or val<0 or val>255):
+                colisiones = colisiones + 1
+                print("Colision")
+                rep = rep +1
+            elif source == "TC:":
+                print(dataS)
+                ack = True
+        except:
             print("Colision")
-        elif source == "TC:":
-            print(dataS)
-    except:
-       print("Colision")
-       colisiones = colisiones + 1
+            colisiones = colisiones + 1
+            rep = rep + 1
 
 s.close()
