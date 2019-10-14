@@ -6,19 +6,25 @@ s = serial.Serial('COM7')
 
 s.is_open
 
+#Se mantiene en un ciclo escuchando 
 while 1:
   data = s.read_until(size=7)           
   try:
     dataS = data.decode()
-    print(dataS)
-    source = dataS[:2]
-    if source == "TA" or source == "Ar":
-      nSec = dataS[3:]
-      resp = "TC: " + nSec
-      s.write(resp.encode()+b'\n')
-      print("ack = "+ resp)
+    if len(dataS>4):
+      source = dataS[:3]
+      val = int(dataS[3:])
+      print(dataS)
+      if((source!="TA:" and source!="TB:") or val<0 or val>255):
+        print("Colision")
+      #Si recibe trama de A, entonces envia un ack
+      elif source == "TA:":
+        resp = "TC: " + val
+        s.write(resp.encode()+b'\n')
+        print("ack = "+ resp)
   except:
     print("Colision")
   
   time.sleep(1/1000*55)       
 s.close()
+

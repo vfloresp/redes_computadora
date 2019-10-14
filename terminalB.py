@@ -6,6 +6,7 @@ s = serial.Serial('COM5')
 
 s.is_open
 n = 0
+#Envia constantemente tramas en una ranura aletoria
 while n<600:
     slotToSend = np.random.randint(1,5)
     time.sleep(slotToSend/1000*55)
