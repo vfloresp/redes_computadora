@@ -31,7 +31,9 @@ while n<500:
                 colisiones = colisiones + 1
                 print("Colision")
                 rep = rep +1
+                s.write(b'TA:')
                 s.write(random.encode())
+                s.write(b'\n')
             elif source == "TC:":
                 print(dataS)
                 ack = True
@@ -40,5 +42,8 @@ while n<500:
             colisiones = colisiones + 1
             rep = rep + 1
             s.write(random.encode())
+            s.write(b'TA:')
+            s.write(random.encode())
+            s.write(b'\n')
 
 s.close()
