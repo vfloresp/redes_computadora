@@ -22,13 +22,15 @@ while n<500:
     try:
         dataS = data.decode()
         source = dataS[:3]
-        val = int(dataS[3:])
+        val = dataS[3:]
+        print(val)
         if(source!="TC:" or source!="TA:" or val<0 or val>255):
             colisiones = colisiones + 1
+            print("Colision")
         elif source == "TC":
             print(dataS)
     except:
        print("Colision")
-       colisiones = colisiones +1
+       colisiones = colisiones + 1
 
 s.close()
