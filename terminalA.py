@@ -17,17 +17,17 @@ while n<500:
     s.write(random.encode())
     s.write(b'\n')
     n = n+1
+    print('TA: ' + random)
     time.sleep(slotToSend/1000*55)
     data = s.read_until(size=7)
     try:
         dataS = data.decode()
         source = dataS[:3]
-        val = dataS[3:]
-        print(val)
-        if(source!="TC:" or source!="TA:" or val<0 or val>255):
+        val = int(dataS[3:])
+        if((source!="TC:" and source!="TB:") or val<0 or val>255):
             colisiones = colisiones + 1
             print("Colision")
-        elif source == "TC":
+        elif source == "TC:":
             print(dataS)
     except:
        print("Colision")
