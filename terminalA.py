@@ -23,26 +23,27 @@ while n<500:
     while ack == False and rep < 3:
         time.sleep(slotToSend/1000*55)
         data = s.read_until(size=7)
-        try:
-            dataS = data.decode()
-            source = dataS[:3]
-            val = int(dataS[3:])
-            if((source!="TC:" and source!="TB:") or val<0 or val>255):
-                colisiones = colisiones + 1
+        if (len(data)<7):
+            try:
+                dataS = data.decode()
+                source = dataS[:3]
+                val = int(dataS[3:])
+                if((source!="TC:" and source!="TB:") or val<0 or val>255):
+                    colisiones = colisiones + 1
+                    print("Colision")
+                    rep = rep +1
+                    s.write(b'TA:')
+                    s.write(random.encode())
+                    s.write(b'\n')
+                elif source == "TC:":
+                    print(dataS)
+                    ack = True
+            except:
                 print("Colision")
-                rep = rep +1
+                colisiones = colisiones + 1
+                rep = rep + 1
                 s.write(b'TA:')
                 s.write(random.encode())
                 s.write(b'\n')
-            elif source == "TC:":
-                print(dataS)
-                ack = True
-        except:
-            print("Colision")
-            colisiones = colisiones + 1
-            rep = rep + 1
-            s.write(b'TA:')
-            s.write(random.encode())
-            s.write(b'\n')
 
 s.close()
