@@ -20,9 +20,9 @@ while n<500:
     s.write(b'\n')
     n = n+1
     print('TA: ' + random)
-    data = s.read_until(size=7)
     while ack == False and rep < 3:
         time.sleep(slotToSend/1000*55)
+        data = s.read_until(size=7)
         try:
             dataS = data.decode()
             source = dataS[:3]

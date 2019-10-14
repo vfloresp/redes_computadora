@@ -7,12 +7,12 @@ s = serial.Serial('COM7')
 s.is_open
 
 while 1:
-  data = s.read_until(size=7)           # Wait forever for anything
+  data = s.read_until(size=7)           
   try:
     dataS = data.decode()
     print(dataS)
     source = dataS[:2]
-    if source == "TA":
+    if source == "TA" or source == "Ar":
       nSec = dataS[3:]
       resp = "TC: " + nSec
       s.write(resp.encode())
