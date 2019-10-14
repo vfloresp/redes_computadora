@@ -24,7 +24,7 @@ while n<500:
     print('TA: ' + random)
 
     #Ciclo para esperar el ack
-    while ack == False and ret < 3:
+    while ack == False and ret <= 3:
         data = s.read_until(size=7)
         #Intenta decodificar los bytes recibidos
         try:
@@ -34,19 +34,22 @@ while n<500:
             validarVal = int(val)
             if(source!="TC:" and source!="TB:"):
                 print("Colision")
-                colisiones = colisiones + 1
-                ret = ret +1
-                s.write(b'TA:'+ random.encode()+b'\n')
+                if ret < 3:
+                    colisiones = colisiones + 1
+                    ret = ret +1
+                    s.write(b'TA:'+ random.encode()+b'\n')
             #El ack se recibio correctamente
             elif source == "TC:":
                 print(dataS)
                 ack = True
         #Si marca error trata de reenviar
-        except:
-            print("Colision")
-            colisiones = colisiones + 1
-            ret = ret + 1
-            s.write(b'TA:'+ random.encode()+b'\n')
+        except Exception as e:
+            if str(e) != "invalid literal for int() with base 10: ''"
+                print("Colision")
+                if ret < 3:
+                    colisiones = colisiones + 1
+                    ret = ret + 1
+                    s.write(b'TA:'+ random.encode()+b'\n')
 
         #Espera un ciclo entre cada lectura
         time.sleep(1/1000*55)
