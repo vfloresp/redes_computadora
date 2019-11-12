@@ -24,7 +24,7 @@ while n<500:
     print('TA: ' + random)
     Ini = int(round(time.time() * 1000))
     #Ciclo para esperar el ack
-    while ack == False and ret <= 3 and (Ini- int(round(time.time() * 1000))<200:
+    while ack == False and ret <= 3 and (Ini- int(round(time.time() * 1000)))<320:
         data = s.read_until(size=7)
         #Intenta decodificar los bytes recibidos
         try:
